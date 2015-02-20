@@ -1,4 +1,4 @@
-(ns leiningen.new.om-async-tut
+(ns leiningen.new.om-intermediate-template
   (:require [leiningen.new.templates :refer [renderer name-to-path ->files]]
             [leiningen.core.main :as main]))
 
