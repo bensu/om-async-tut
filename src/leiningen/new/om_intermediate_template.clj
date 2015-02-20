@@ -2,13 +2,13 @@
   (:require [leiningen.new.templates :refer [renderer name-to-path ->files]]
             [leiningen.core.main :as main]))
 
-(def render (renderer "om-async-tut"))
+(def render (renderer "om-intermediate-template"))
 
-(defn om-async-tut
+(defn om-intermediate-template
   [name]
   (let [data {:name name
               :sanitized (name-to-path name)}]
-    (main/info "Generating fresh 'lein new' om-async-tut project.")
+    (main/info "Generating fresh 'lein new' om-intermediate-template project.")
     (->files data
       ["project.clj" (render "project.clj" data)]
       [".gitignore" (render "gitignore" data)]
