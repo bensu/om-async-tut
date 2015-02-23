@@ -1,10 +1,10 @@
 (ns {{name}}.core
   (:require [ring.util.response :refer [file-response]]
             [ring.adapter.jetty :refer [run-jetty]]
-            [ring.middleware.edn :refer [wrap-edn-params]]
             [compojure.core :refer [defroutes GET PUT]]
             [compojure.route :as route]
             [compojure.handler :as handler]
+            [clojure.edn :as edn]
             [datomic.api :as d]))
 
 (def uri "datomic:free://localhost:4334/{{sanitized}}")
@@ -44,10 +44,23 @@
   (GET "/" [] (index))
   (GET "/classes" [] (classes))
   (PUT "/class/:id/update"
-    {params :params edn-params :edn-params}
-    (update-class (:id params) edn-params))
+    {params :params edn-body :edn-body}
+    (update-class (:id params) edn-body))
   (route/files "/" {:root "resources/public"}))
+
+(defn read-inputstream-edn [input]
+  (edn/read
+   {:eof nil}
+   (java.io.PushbackReader.
+    (java.io.InputStreamReader. input "UTF-8"))))
+
+(defn parse-edn-body [handler]
+  (fn [request]
+    (handler (if-let [body (:body request)]
+               (assoc request
+                 :edn-body (read-inputstream-edn body))
+               request))))
 
 (def handler 
   (-> routes
-      wrap-edn-params))
+      parse-edn-body))
