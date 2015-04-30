@@ -1,4 +1,4 @@
-(defproject om-intermediate-template/lein-template "0.1.12"
+(defproject om-intermediate-template/lein-template "0.1.13"
   :description "Om async tutorial"
   :url "http://github.com/swannodette/om"
   :license {:name "Eclipse Public License"
