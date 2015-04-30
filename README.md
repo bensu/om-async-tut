@@ -6,12 +6,12 @@ Template for the Om
 ## Usage
 
 ```
-lein new om-async-tut <project-name>
+lein new om-intermediate-template om-async
 ```
 
 ## License
 
-Copyright © 2014 David Nolen
+Copyright © 2015 David Nolen
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
